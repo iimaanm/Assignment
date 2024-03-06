@@ -1,4 +1,6 @@
-from table import table, add_record, amend_record
+from table import data,fields, add_record, amend_record
+import datetime
+
 
 print("")
 

@@ -1,133 +1,132 @@
-# def table():
-    import datetime
+import datetime
 
-    # Hard coded data
-    data = [
-        [100, "Vaccines", "NHS", datetime.date(2020,8,13), datetime.date(2022,10,7), 437, "UK", "Complete"],
-        [101, "Fastfood App", "PFC", datetime.date(2023,12,1), datetime.date(2024,12,1), 931, "USA", "In-Progress"],
-        [102, "Hydrogen 1", "Nestle", datetime.date(2019,3,30), datetime.date(2023,10,18), 125, "UK", "In-Progress"],
-        [103, "Pen Programme", "Bic", datetime.date(2024,4,6), datetime.date(2024,6,6), 740, "Sweden", "Not-Started"],
-        [104, "Reusable Paper", "Unilever", datetime.date(2018,1,1), datetime.date(2024,1,1), 864, "UK", "Complete"],
-        [105, "App Research", "Lexus", datetime.date(2024,2,11), datetime.date(2024,10,30), 535, "USA", "In-Progress"],
-        [106, "Rewards App", "Costa", datetime.date(2023,8,1), datetime.date(2024,12,7), 437, "UK", "In-Progress"],
-        [107, "Faster Login", "Emirates", datetime.date(2023,7,7), datetime.date(2024,7,7), 437, "UAE", "In-Progress"],
-        [108, "Redevelopment", "Council", datetime.date(2024,12,8), datetime.date(2025,12,8), 437, "UK", "Not-Started"],
-        [109, "Transport App", "TFL", datetime.date(2022,2,27), datetime.date(2024,10,7), 437, "UK", "In-Progress"],
-    ]
-    fields = ["Project ID", "Project Name", "Client", "Start Date", "End Date", "Consultant ID", "Country", "Project Status"]
 
-    # Function to print table
-    def print_table(fields, data):
-        print ("|", fields[0],"|", fields[1],"   |", fields[2],"     |",fields[3],"|", fields[4],"  |", fields[5],"|", fields[6],"|", fields[7],"|")
-        print("-------------------------------------------------------------------------------------------------------------------")
-        for item in data:
-            print ("|", item[0],(" ")*6,"|",
-                    item[1],(" ")*(14-len(item[1])),"|",
-                    item[2],(" ")*(10-len(item[2])),"|",
-                    item[3],"|",
-                    item[4],"|",
-                    item[5],(" ")*9,"|",
-                    item[6],(" ")*(6-len(item[6])),"|",
-                    item[7],(" ")*(13-len(item[7])),"|")
+# Hard coded data
+data = [
+    [100, "VACCINES", "NHS", datetime.date(2020,8,13), datetime.date(2022,10,7), 437, "UK", 3],
+    [101, "FASTFOOD APP", "PFC", datetime.date(2023,12,1), datetime.date(2024,12,1), 931, "USA", 1],
+    [102, "HYDROGEN X", "NESTLE", datetime.date(2019,3,30), datetime.date(2023,10,18), 125, "UK", 3],
+    [103, "PEN PROGRAMME", "BIC", datetime.date(2024,4,6), datetime.date(2024,6,6), 740, "Sweden", 0],
+    [104, "REUSABLE PAPER", "UNILEVER", datetime.date(2018,1,1), datetime.date(2024,1,1), 864, "UK", 3],
+    [105, "APP RESEARCH", "LEXUS", datetime.date(2024,2,11), datetime.date(2024,10,30), 535, "USA", 1],
+    [106, "REWARDS APP", "COSTA", datetime.date(2023,8,1), datetime.date(2024,12,7), 437, "UK", 1],
+    [107, "FASTER LOGIN", "EVENTBRITE", datetime.date(2023,7,7), datetime.date(2024,7,7), 437, "UAE", 2],
+    [108, "REDEVELOPMENT", "COUNCIL", datetime.date(2024,12,8), datetime.date(2025,12,8), 437, "UK", 0],
+    [109, "TRANSPORT APP", "TFL", datetime.date(2022,2,27), datetime.date(2024,10,7), 437, "UK", 2],
+]
+fields = ["Project ID", "Project Name", "Client", "Start Date", "End Date", "Consultant ID", "Country", "Status (/3)"]
+
+# Function to print table
+def print_table(fields, data):
+    print ("|", fields[0],"|", fields[1],"   |", fields[2],"     |",fields[3],"|", fields[4],"  |", fields[5],"|", fields[6],"|", fields[7],"|")
+    print("-------------------------------------------------------------------------------------------------------------------")
+    for item in data:
+        print ("|", item[0],(" ")*6,"|",
+                item[1],(" ")*(14-len(item[1])),"|",
+                item[2],(" ")*(10-len(item[2])),"|",
+                item[3],"|",
+                item[4],"|",
+                item[5],(" ")*9,"|",
+                item[6],(" ")*(6-len(item[6])),"|",
+                item[7],(" ")*9,"|")
     return (data)
-    print_table(fields,data)
+print_table(fields,data)
 
-#function to add record, data validation to check valid datatype is inputted by user
+
+
+#Function to add record, data validation to check valid datatype is inputted by user.
 def add_record():
-    import data
     new_record = []
-    while len(new_record)<9:
+
+#Project ID is the Primary Key and therefore cannot be duplicated.
+    while len(new_record)<=1:
         try:
-            new_projectid= int(input("What is the Project ID of the record you would like to add   "))
-            new_record.append(new_projectid)
-        except TypeError:
-            return "Project ID must be a number"
-        for id in data[0]:
-            if id == new_projectid:
-                return "Project ID alread taken"
-            
+            new_projectid = int(input("\nWhat is the Project ID of the record you would like to add:   "))
+            duplicate = any(new_projectid == row[0] for row in data)
 
-            #add data validation for strings????
+            if duplicate:
+                print("\nProject ID already taken")
+            else:
+                new_record.append(new_projectid)
+                print(new_record)
+                break  # Breaks the loop if the project ID is not taken.
 
-            new_projectname= input("What is the Project name of the record you would like to add   ")
-            new_record.append(new_projectname)
-    
-            new_client= input("Who is the Client of the record you would like to add   ")
-            new_record.append(new_client)
+        except ValueError:
+            print("\nError: Project ID must be a number")   
 
-
-        try:
-            new_startdate= input("What is the Start Date of the record you would like to add   ")
-            datetime.datetime.strptime(new_record[3],"%Y-%m-%d")
-            new_record.append(new_startdate)
-        except TypeError:
-            ("Error: Start Date should be in the format YYYY-MM-DD.")
-        try:
-            new_enddate= input("What is the End Date of the record you would like to add   ")
-            datetime.datetime.strptime(new_record[3],"%Y-%m-%d")
-            new_record.append(new_enddate)
-        except TypeError:
-            ("Error: End Date should be in the format YYYY-MM-DD.")
-
-        
-        try:
-            new_consultantid= int(input("What is the Consultant's ID of the record you would like to add   "))
-        except TypeError:
-            return "Error: Consultant ID must be a number"
-        new_country= input("What is the Country of the record you would like to add   ")
-        new_projectstatus= input("What is the Project Status of the record you would like to add   ")
-
+#Project name can be int or str.
+    while len(new_record)<2:
+        new_projectname= input("\nWhat is the Project name of the record you would like to add:   ")
+        new_record.append(new_projectname)
         print(new_record)
 
+#Client can be int or str.
+    while len(new_record)<3:
+        new_client= input("\nWho is the Client of the record you would like to add:   ")
+        new_record.append(new_client)
+        print(new_record)
 
-        # while len(new_record)<9:
-        #     new_item= input("What is the record you would like to add   ")
-        #     new_record.append(new_item)
+#Checking start date is in datetime format.
+    while len(new_record)<4:    
+        try:
+            new_startdate= input("\nWhat is the Start Date of the record you would like to add:   ")
+            new_record.append(new_startdate)
+            datetime.datetime.strptime(new_record[3],"%Y-%m-%d")
+            print(new_record)
+        except ValueError:
+            print("\nError: Start Date should be in the format YYYY-MM-DD.")
+            new_record.pop(-1)
 
-        #     if len(new_record) == 1 and not new_record[0].isdigit():
-        #         print("Error: Project ID should be an integer.")
-        #         new_record.pop(0)
-        #     elif len(new_record) == 2 and not isinstance(new_record[1],str):
-        #         print("Error: Project Name should be an string.")
-        #         new_record.pop(1)
-        #     elif len(new_record) == 3 and not isinstance(new_record[2],str):
-        #         print("Error: Client should be an string.")
-        #         new_record.pop(2)
-        #     elif len(new_record) == 4:
-        #         try:
-        #             datetime.datetime.strptime(new_record[3],"%Y-%m-%d")
-        #         except ValueError:
-        #             ("Error: Start Date should be in the format YYYY-MM-DD.")
-        #             new_record.pop(3)
-        #     elif len(new_record) == 5:
-        #         try:
-        #             datetime.datetime.strptime(new_record[4],"%Y-%m-%d")
-        #         except ValueError:
-        #             ("Error: End Date should be in the format YYYY-MM-DD.")
-        #             new_record.pop(3)
-                
-        #         # and not isinstance(new_record[3], datetime.date):
-        #     #     print("Error: Start Date should be in the format YYYY-MM-DD.")
-            
-        #     # elif len(new_record) == 5 and not isinstance(new_record[4], datetime.date):
-        #     #     print("Error: End Date should be in the format YYYY-MM-DD.")
-        #         new_record.pop(4)
-        #     elif len(new_record) == 6 and not isinstance(new_record[5],str):
-        #         print("Error: Consultant ID should be an integer.")
-        #         new_record.pop(5)
-        #     elif len(new_record) == 7 and not isinstance(new_record[6],str):
-        #         print("Error: Country should be a string.")
-        #         new_record.pop(6)
-        #     elif len(new_record) == 8 and not isinstance(new_record[7],str):
-        #         print("Error: Project Status should be an integer.")
-        #         new_record.pop(7)
+#Checking enddate is in datetime format and is after start date.
+    while len(new_record)<5:
+        try:
+            new_enddate= input("\nWhat is the End Date of the record you would like to add:   ")
+            if new_enddate<new_startdate: 
+                print(f"\nEnd date cannot be before {new_startdate}")
+            else:
+                new_record.append(new_enddate)
+                datetime.datetime.strptime(new_record[4],"%Y-%m-%d")
+                print(new_record)
+        except ValueError:
+            print("\nError: End Date should be in the format YYYY-MM-DD.")
+            new_record.pop(-1)
 
-        #     else:
-        #         pass
+#Checking consultant ID is a number.
+    while len(new_record)<6:    
+        try:
+            new_consultantid= int(input("\nWhat is the Consultant's ID of the record you would like to add:   "))
+            new_record.append(new_consultantid)
+            print(new_record)
+        except ValueError:
+            print("\nError: Consultant ID must be a number")
+             
+
+# Checking country is a string.
+    while len(new_record)<7:    
+        new_country = input("\nWhat is the Country of the record you would like to add:   ")
+        try:
+            int(new_country)
+            print ("\nError: Country must be a string")
+        except ValueError:
+            new_record.append(new_country)
+            print(new_record)
+ 
+#Checking project status is between 0-3.
+    while len(new_record)<8:    
+        try:
+            new_projectstatus= int(input("\nWhat is the Project Status of the record you would like to add:   "))
+            if 0<=new_projectstatus<4:
+                new_record.append(new_projectstatus)
+                print(new_record)
+            else:
+                print ("\nError: Project Status must be a number 0-3")
+        except ValueError:
+            print ("\nError: Project Status must be a number 0-3")
+        
 
 
 
-
+        
     # data.append(new_record)
 
 # add_record()
