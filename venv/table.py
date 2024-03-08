@@ -18,6 +18,7 @@ fields = ["Project ID", "Project Name", "Client", "Start Date", "End Date", "Con
 table = tabulate(data, fields, tablefmt = "pretty")
 print(table)
 
+
 # # Function to print table
 # def print_table(fields, data):
 #     print ("|", fields[0],"|", fields[1],"   |", fields[2],"     |",fields[3],"|", fields[4],"  |", fields[5],"|", fields[6],"|", fields[7],"|")
