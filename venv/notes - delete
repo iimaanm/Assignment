@@ -1,0 +1,14 @@
+# # Function to print table
+# def print_table(fields, data):
+#     print ("|", fields[0],"|", fields[1],"   |", fields[2],"     |",fields[3],"|", fields[4],"  |", fields[5],"|", fields[6],"|", fields[7],"|")
+#     print("-------------------------------------------------------------------------------------------------------------------")
+#     for item in data:
+#         print ("|", item[0],(" ")*6,"|",
+#                 item[1],(" ")*(14-len(item[1])),"|",
+#                 item[2],(" ")*(10-len(item[2])),"|",
+#                 item[3],"|",
+#                 item[4],"|",
+#                 item[5],(" ")*9,"|",
+#                 item[6],(" ")*(6-len(item[6])),"|",
+#                 item[7],(" ")*9,"|")
+    
