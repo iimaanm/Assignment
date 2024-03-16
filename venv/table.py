@@ -59,12 +59,13 @@ def add_record(data):
     while len(new_record)<4:    
         try:
             new_startdate= input("\nWhat is the Start Date of the record you would like to add:   ")
-            new_record.append(new_startdate)
-            datetime.datetime.strptime(new_record[3],"%Y-%m-%d")
-            print(new_record)
         except ValueError:
             print("\nError: Start Date should be in the format YYYY-MM-DD.")
             new_record.pop(-1)
+        else:
+            new_record.append(new_startdate)
+            datetime.datetime.strptime(new_record[3],"%Y-%m-%d")
+            print(new_record)
 
 #Checking enddate is in datetime format and is after start date.
     while len(new_record)<5:
@@ -113,6 +114,7 @@ def add_record(data):
             print ("\nError: Project Status must be a number 0-3")
     
     data.append(new_record)
+    print("The new record has been added succesfully.")
     print_table(fields,data)
         
 # add_record(data)
@@ -123,9 +125,7 @@ def amend_record(fields,data):
     id_to_amend = int(input("Enter the Project ID of the project you want to amend.    "))
     record_doesnt_exist= True
 # Using project id to find index of project to amend
-
-
-
+    
     record_index = -1
     for i, record in enumerate(data):
         if record[0] == id_to_amend:
@@ -149,9 +149,6 @@ def amend_record(fields,data):
 #             record_doesnt_exist == True
 #         else:
 #             record_doesnt_exist = False
-            
-
-
     field_to_amend = input("Which field would you like to amend?    ").upper()
     if field_to_amend not in fields:
         print(f"Field {field_to_amend} does not exist")
@@ -231,5 +228,34 @@ def amend_record(fields,data):
         print_table(fields,data)
 
 
+# amend_record(fields,data)
+        
+def delete_record(fields,data):
+#Checking Project ID is an integer
+    record_deleted = False
+    while record_deleted == False:
+        try:
+            project_id_to_delete = int(input("\nEnter the Project ID of the record you would like to delete:   "))
+        except ValueError:
+            print("\nError: Project ID must be a number")  
+        else:
+            #finding project id within data
+            record_index = -1
+            for i, record in enumerate(data):
+                if record[0] == project_id_to_delete:
+                    record_index = i
+                    break
+            if record_index == -1:
+                print("\nRecord not found.")
+            else:
+                del data[record_index]
+                print(f"\nRecord with Project ID {project_id_to_delete} deleted successfully.")
+                print_table(fields, data)
+                record_deleted = True
+            
 
-amend_record(fields,data)
+ 
+
+
+
+delete_record(fields,data)
