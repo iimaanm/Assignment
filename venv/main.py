@@ -1,8 +1,8 @@
-from table import data,fields, add_record, amend_record
-import datetime
+# from table import data,fields, add_record, amend_record
+# import datetime
 
 
-print("")
+
 
 def menu():
 
