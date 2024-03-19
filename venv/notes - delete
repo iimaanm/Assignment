@@ -12,3 +12,122 @@
 #                 item[6],(" ")*(6-len(item[6])),"|",
 #                 item[7],(" ")*9,"|")
     
+
+# delete_record(fields,data)
+
+
+
+# #function to amend record
+# def amend_record(fields,data):
+#     # Using project id to find index of project to amend
+#     try:
+#         id_to_amend = int(input("\nEnter the Project ID of the project you want to amend:    "))
+#     except ValueError:
+#         print("\nError: Project ID must be a number")
+#     else:
+#         record_index = -1
+#         for i, record in enumerate(data):
+#             if record[0] == id_to_amend:
+#                 record_index = i
+#                 break
+                
+
+
+
+#     record_doesnt_exist= True
+    
+#         # Making sure project id exists
+#     if record_index == -1:
+#         print("Record not found.")
+#     else:
+#         print(f"Amending Project {id_to_amend}...")
+
+# #     # for i, record in enumerate(data):
+# #     #     if record[0] == id_to_amend:
+# #     #         record_index = i
+# #     #         break
+# # #Making sure project id exixts
+# #     while record_doesnt_exist == True:
+# #         if record_index == -1:
+# #             print("Record not found.")
+# #             record_doesnt_exist == True
+# #         else:
+# #             record_doesnt_exist = False
+#     field_to_amend = input("Which field would you like to amend?    ").upper()
+#     if field_to_amend not in fields:
+#         print(f"Field {field_to_amend} does not exist")
+#     else:
+#         #Checking Project ID is an integer and is not duplicated.
+#         if field_to_amend == "PROJECT ID":
+#             try:
+#                 new_projectid = int(input(f"Enter the new record for {field_to_amend}:   "))
+#                 duplicate = any(new_projectid == row[0] for row in data)
+
+#                 if duplicate:
+#                     print("\nProject ID already taken")
+#                 else:
+#                     field_index = fields.index(field_to_amend)
+#                     data[record_index][field_index] = new_projectid
+#                     print("\nRecord amended successfuly...")
+#                     # break 
+#             except ValueError:
+#                 print("\nError: Project ID must be a number") 
+#         #Checking start date is in datetime format.
+#         if field_to_amend == "START DATE":
+#             try:
+#                 new_startdate=  input(f"Enter the new record for {field_to_amend}:   ")
+#                 datetime.datetime.strptime(new_startdate,"%Y-%m-%d")
+#                 field_index = fields.index(field_to_amend)
+#                 data[record_index][field_index] = new_startdate
+#                 print("\nRecord amended successfuly...")
+#             except ValueError:
+#                 print("\nError: Start Date should be in the format YYYY-MM-DD.")
+            
+#         new_startdate = data[record_index][fields.index("START DATE")]
+
+        
+#         #Checking enddate is in datetime format and is after start date.
+#         if field_to_amend == "END DATE":
+#             try:
+#                 new_enddate=  input(f"Enter the new record for {field_to_amend}:   ")
+#                 if new_enddate<new_startdate: 
+#                     print(f"\nEnd date cannot be before {new_startdate}")
+#                 else:
+#                     datetime.datetime.strptime(new_enddate,"%Y-%m-%d")
+#                     field_index = fields.index(field_to_amend)
+#                     data[record_index][field_index] = new_enddate
+#                     print("\nRecord amended successfuly...")
+#             except ValueError:
+#                 print("\nError: End Date should be in the format YYYY-MM-DD.")
+            
+
+        
+#         #Checking input is in string format
+#         if field_to_amend == "PROJECT NAME" or field_to_amend == "COUNTRY" or field_to_amend == "CLIENT":
+#             try:
+#                 new_string= str(input(f"Enter the new record for {field_to_amend}:   ")).upper()
+#                 field_index = fields.index(field_to_amend)
+#                 data[record_index][field_index] = new_string
+#                 print("\nRecord amended successfuly...")
+#             except TypeError:
+#                 print(f"\nError: {field_to_amend} must be a string") 
+  
+#         #Checking input is in integer format
+#         if field_to_amend == "CONSULTANT ID" or field_to_amend == "STATUS":
+#             try:
+#                 new_integer= int(input(f"Enter the new record for {field_to_amend}:   "))
+#                 field_index = fields.index(field_to_amend)
+#                 data[record_index][field_index] = new_integer
+#                 print("\nRecord amended successfuly...")
+#             except TypeError:
+#                 print(f"\nError: {field_to_amend} must be a number") 
+
+        
+
+#         # #Amending record
+#         # field_index = fields.index(field_to_amend)
+#         # data[record_index][field_index] = amended_record_value
+#         # print("\nRecord amended successfuly...")
+        
+#         print_table(fields,data)
+#         return(fields,data)
