@@ -108,7 +108,8 @@ def add_record(fields, data):
     data.append(new_record)
     print("The new record has been added succesfully.")
     print_table(fields,data)
-    return(fields,data)       
+    return(fields,data)
+    print("Program exited.")       
 
 # add_record(data)
 
@@ -138,6 +139,7 @@ def delete_record(fields,data):
                 print_table(fields, data)
                 record_deleted = True
     return(fields,data)
+    print("Program exited.")
 
 
 
@@ -261,5 +263,70 @@ def amend_record(fields, data):
         print("\nRecord amended successfully...")
         print_table(fields, data)
         return (fields, data)
+        print("Program exited.")
 
 
+def display_full_details(fields,data):
+   
+    
+    # try:
+    #     project_id = int(input("\nEnter the Project ID for the record you would like to display details for: "))
+    #     found = False
+    #     for record in data:
+    #         if record[0] == project_id:
+    #             found = True
+    #             if record[7] == 0:
+    #                 print("\nThis project has not commenced yet.")
+    #             elif record[7] == 1:
+    #                 print("\nThis project has commenced. Timeframe and cost have been agreed upon and the team has been assembled.")
+    #             elif record[7] == 2:
+    #                 print("\nThis project is close to completion and is about to be finalised.")
+    #             elif record[7] == 3:
+    #                 print("\nThis project is complete.")
+    #             exit
+                
+    #     if found == False:
+    #         print("\nProject was not found.")
+    # except ValueError:
+    #     print("\nError: Project ID must be an integer")
+        # choice = input("Would you like to display details for another project? (Y/N): ")
+        # if choice.upper() != 'YES':
+        #     break
+
+    project_id = int(input("\nEnter the Project ID for the record you would like to display details for: "))      
+    found = False
+    try:
+        for record in data:
+            if record[0] == project_id:
+                found = True
+                if record[7] == 0:
+                    print("\nThis project has not commenced yet.")
+                elif record[7] == 1:
+                    print("\nThis project has commenced. Timeframe and cost have been agreed upon and the team has been assembled.")
+                elif record[7] == 2:
+                    print("\nThis project is close to completion and is about to be finalised.")
+                elif record[7] == 3:
+                    print("\nThis project is complete.")
+                return True  # Indicate that project details are displayed
+        if not found:
+            print("\nProject was not found.")
+            while True:
+                project_id = int(input("\nEnter the Project ID for the record you would like to display details for: ")) 
+                for record in data:
+                    if record[0] == project_id:
+                     break
+    except ValueError:
+        print("\nError: Project ID must be an integer")
+    return False  # Indicate that project details are not displayed
+
+  
+
+
+
+
+
+
+
+
+
+display_full_details(fields, data)
