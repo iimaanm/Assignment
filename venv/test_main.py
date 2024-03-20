@@ -1,27 +1,33 @@
 import pytest
-from main import menu
-from table import print_table, add_record, amend_record, delete_record
-
-data = []
-fields = []
+#   main import menu
+from table import print_table, add_record, amend_record, delete_record, display_full_details, fields, data
+# from pytest import monkeypatch
 
 
-def test_add_record():
+
+def mock_input(prompt):
+    responses = {"\nWhat is the Project ID of the record you would like to add:   ": 100,
+                 "\nWhat is the Project name of the record you would like to add:   ": "Test",
+                 "\nWho is the Client of the record you would like to add:   ": "Test",
+                 "\nWhat is the Start Date of the record you would like to add:   ": 2011-11-11,
+                 "\nWhat is the End Date of the record you would like to add:   ": 2012-12-12,
+                 "\nWhat is the Consultant ID of the record you would like to add:   ": 100,
+                 "\nWhat is the Country of the record you would like to add:   ": "Test",
+                 "\nWhat is the Project Status of the record you would like to add (/3):   ": 0}
+    return responses(prompt)
+
+def test_add_record_success(monkeypatch):
     #ARRANGE
     new_record = []
-    responses = {
-        "\nWhat is the Project ID of the record you would like to add:   " : 110,
-        "\nWhat is the Project ID of the record you would like to add:   " : 100,
-        "\nWhat is the Project name of the record you would like to add:   ": "test_name1",
-        "\nWho is the Client of the record you would like to add:   " : "test_client1"
-        "\nWhat is the Start Date of the record you would like to add:   "
-
-    }
+    monkeypatch.setattr('builtins.input', mock_input)
 
     #ACT
-
+    output = add_record(fields,data)
 
     #ASSERT
+    assert output == "The new record has been added succesfully."
 
 
 
+with pytest.raises(ValueError):
+    int(input("\nWhat is the Country of the record you would like to add:   " ))
