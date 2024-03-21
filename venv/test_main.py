@@ -1,7 +1,5 @@
 import pytest
-#   main import menu
-from table import print_table, add_record, amend_record, delete_record, display_full_details, fields, data
-# from pytest import monkeypatch
+import table as table
 
 
 

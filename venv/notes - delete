@@ -251,3 +251,8 @@ def test_add_record(monkeypatch, capsys):
 #         'Consultant ID': 123,
 #         'Country': 'Test Country',
 #         'Status': 1
+
+
+#   main import menu
+# from table import print_table, add_record, amend_record, delete_record, display_full_details, fields, data
+# from pytest import monkeypatch
