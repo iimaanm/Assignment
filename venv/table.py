@@ -20,7 +20,7 @@ def print_table(fields, data):
     table = tabulate(data, fields, tablefmt = "pretty")
     print(table)
 
-print_table(fields, data)
+
     
 
 #Function to add record, data validation to check valid datatype is inputted by user.
@@ -107,10 +107,9 @@ def add_record(fields, data):
     
     data.append(new_record)
     print("The new record has been added succesfully.")
-    print_table(fields,data)
-    return(fields,data)       
+    return(fields,data)
+         
 
-# add_record(data)
 
 
 
@@ -135,9 +134,9 @@ def delete_record(fields,data):
             else:
                 del data[record_index]
                 print(f"\nRecord with Project ID {project_id_to_delete} deleted successfully.")
-                print_table(fields, data)
                 record_deleted = True
-    return(fields,data)
+        return(fields,data)
+        
 
 
 
@@ -173,19 +172,21 @@ def amend_record(fields, data):
         else:
             valid_field = True
 
-
+    
     #Project ID must be an int
     if field_to_amend == "PROJECT ID":
-        try:
-            new_projectid = int(input(f"nEnter the new record for {field_to_amend}: "))
-        except ValueError:
-            print("\nError: Project ID must be a number")  
-        else:
-            duplicate = any(new_projectid == row[0] for row in data)
-            if duplicate:
-                print("\nProject ID already taken")
+        while True:
+            try:
+                new_projectid = int(input(f"\nEnter the new data for {field_to_amend}: "))
+            except ValueError:
+                print("\nError: Project ID must be a number")  
             else:
-                data[record_index][fields.index(field_to_amend)] = new_projectid
+                duplicate = any(new_projectid == row[0] for row in data)
+                if duplicate:
+                    print("\nProject ID already taken")
+                else:
+                    data[record_index][fields.index(field_to_amend)] = new_projectid
+                    break
 
     #Start date must be in datetime format and before end date.
     elif field_to_amend == "START DATE":
@@ -258,8 +259,37 @@ def amend_record(fields, data):
                     print ("\nError: Project Status must be a number 0-3")
             except ValueError:
                     print ("\nError: Project Status must be a number 0-3")
-        print("\nRecord amended successfully...")
-        print_table(fields, data)
-        return (fields, data)
+    print("\nRecord amended successfully...")
+    return (fields, data)
+            
+        
 
+
+
+def display_full_details(fields, data):
+    while True:
+        try:
+            project_id = int(input("\nEnter the Project ID for the record you would like to display details for: "))
+            found = False
+            for record in data:
+                if record[0] == project_id:
+                    found = True
+                    if record[7] == 0:
+                        print("\nThis project has not commenced yet.")
+                    elif record[7] == 1:
+                        print("\nThis project has commenced. Timeframe and cost have been agreed upon and the team has been assembled.")
+                    elif record[7] == 2:
+                        print("\nThis project is close to completion and is about to be finalised.")
+                    elif record[7] == 3:
+                        print("\nThis project is complete.")
+            if not found:
+                print("\nProject was not found.")
+        except ValueError:
+            print("\nError: Project ID must be an integer")
+            #Notifies user that the entered Project ID does not exist    
+                
+        choice = input("\nEnter 'Exit' to leave the program or any other key to continue:  ")
+        if choice.upper() == "EXIT":
+            break
+                    
 
