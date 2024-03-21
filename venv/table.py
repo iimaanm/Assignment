@@ -1,5 +1,5 @@
 import datetime
-from tabulate import tabulate
+# from tabulate import tabulate
     # Hard coded data
 data = [
     [100, "VACCINES", "NHS", datetime.date(2020,8,13), datetime.date(2022,10,7), 437, "UK", 3],
@@ -16,11 +16,24 @@ data = [
 fields = ["PROJECT ID", "PROJECT NAME", "CLIENT", "START DATE", "END DATE", "CONSULTANT ID", "COUNTRY", "STATUS"]
 
  # Function to print table
+# def print_table(fields, data):
+#     table = tabulate(data, fields, tablefmt = "pretty")
+#     print(table)
+
+from rich.console import Console
+from rich.table import Table
+import datetime
+
 def print_table(fields, data):
-    table = tabulate(data, fields, tablefmt = "pretty")
-    print(table)
+    console = Console()
+    table = Table(show_header=True, header_style="bold magenta")
+    for field in fields:
+        table.add_column(field)
 
+    for row in data:
+        table.add_row(*map(str, row))
 
+    console.print(table)
     
 
 #Function to add record, data validation to check valid datatype is inputted by user.
