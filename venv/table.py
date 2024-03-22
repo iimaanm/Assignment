@@ -195,7 +195,7 @@ def amend_record(fields, data):
             else:
                 duplicate = any(new_projectid == row[0] for row in data)
                 if duplicate:
-                    print("\nProject ID already taken")
+                    print("\nError: Project ID already taken")
                 else:
                     data[record_index][fields.index(field_to_amend)] = new_projectid
                     break
@@ -304,4 +304,3 @@ def display_full_details(fields, data):
         if choice.upper() == "EXIT":
             break
                     
-

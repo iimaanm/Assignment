@@ -36,7 +36,7 @@ def test_add_record_success(monkeypatch):
 def test_add_record_failure(monkeypatch):
     #ARRANGE
     # Prepare input data with invalid inputs
-    input_data = "invalid\nTest\nTest\n2022-01-01\n2022-01-02\n100\nTest\n0\n"
+    input_data = "invalid\n\nTest\nTest\n2022-01-01\n2022-01-02\n100\nTest\n0\n"
     
     # Creating mock data
     fields = ["Project ID", "Project name", "Client", "Start Date", "End Date", "Consultant ID", "Country", "Project Status"]
@@ -100,16 +100,13 @@ def test_delete_record_failure(monkeypatch):
 
 def test_amend_record_success(monkeypatch):
     #ARRANGE
-    # Prepare input data with invalid input
-    while True:
-        try:
-            input_data = "101\nClient\nTest"
-        except EOFError:
-            return 
+    # Prepare input data with valid input
+    input_data = "101\nCountry\nTest"
+
 
     # Creating mock data
-    fields = ["Project ID", "Project name", "Client", "Start Date", "End Date", "Consultant ID", "Country", "Project Status"]
-    data = data = [
+    fields = ["Project ID", "Project name", "Client", "Start Date", "End Date", "Consultant ID", "COUNTRY", "Project Status"]
+    data = [
     [100, "VACCINES", "NHS", datetime.date(2020,8,13), datetime.date(2022,10,7), 437, "UK", 3],
     [101, "FASTFOOD APP", "PFC", datetime.date(2023,12,1), datetime.date(2024,12,1), 931, "USA", 1],
     [102, "HYDROGEN X", "NESTLE", datetime.date(2019,3,30), datetime.date(2023,10,18), 125, "NEW ZEALAND", 3]]
@@ -117,9 +114,31 @@ def test_amend_record_success(monkeypatch):
     #Mocking system inputs through using 'input_data' 
     monkeypatch.setattr('sys.stdin', StringIO(input_data))
 
-
     # ACT - Call the function that deletes a record
     result = amend_record(fields, data)
 
     # ASSERT - the result should be original list length minus 1
-    assert data[1][2] == "test"
+    assert "Test" in data
+
+
+def test_amend_record_failure(monkeypatch):
+    #ARRANGE
+    # Prepare input data with invalid input
+    input_data = "101\nCountry\n\n"
+
+
+    # Creating mock data
+    fields = ["Project ID", "Project name", "Client", "Start Date", "End Date", "Consultant ID", "COUNTRY", "Project Status"]
+    data = [
+    [100, "VACCINES", "NHS", datetime.date(2020,8,13), datetime.date(2022,10,7), 437, "UK", 3],
+    [101, "FASTFOOD APP", "PFC", datetime.date(2023,12,1), datetime.date(2024,12,1), 931, "USA", 1],
+    [102, "HYDROGEN X", "NESTLE", datetime.date(2019,3,30), datetime.date(2023,10,18), 125, "NEW ZEALAND", 3]]
+
+    #Mocking system inputs through using 'input_data' 
+    monkeypatch.setattr('sys.stdin', StringIO(input_data))
+
+    # ACT - Call the function that deletes a record
+    result = amend_record(fields, data)
+
+    # ASSERT - the result should not be in the data list 
+    assert 1324 in data
