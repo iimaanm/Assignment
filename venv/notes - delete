@@ -256,3 +256,9 @@ def test_add_record(monkeypatch, capsys):
 #   main import menu
 # from table import print_table, add_record, amend_record, delete_record, display_full_details, fields, data
 # from pytest import monkeypatch
+
+
+ # Function to print table
+# def print_table(fields, data):
+#     table = tabulate(data, fields, tablefmt = "pretty")
+#     print(table)

@@ -1,6 +1,8 @@
+from rich.console import Console
+from rich.table import Table
 import datetime
-# from tabulate import tabulate
-    # Hard coded data
+
+# Hard coded data
 data = [
     [100, "VACCINES", "NHS", datetime.date(2020,8,13), datetime.date(2022,10,7), 437, "UK", 3],
     [101, "FASTFOOD APP", "PFC", datetime.date(2023,12,1), datetime.date(2024,12,1), 931, "USA", 1],
@@ -15,15 +17,12 @@ data = [
 ]
 fields = ["PROJECT ID", "PROJECT NAME", "CLIENT", "START DATE", "END DATE", "CONSULTANT ID", "COUNTRY", "STATUS"]
 
- # Function to print table
-# def print_table(fields, data):
-#     table = tabulate(data, fields, tablefmt = "pretty")
-#     print(table)
 
 from rich.console import Console
 from rich.table import Table
 import datetime
 
+#Using Rich to format table
 def print_table(fields, data):
     console = Console()
     table = Table(show_header=True, header_style="bold magenta")
@@ -126,7 +125,7 @@ def add_record(fields, data):
 
 
 
-        
+#Deletes record from the table  
 def delete_record(fields,data):
 #Checking Project ID is an integer
     record_deleted = False
@@ -153,7 +152,7 @@ def delete_record(fields,data):
 
 
 
-
+#Amends record in the table  
 def amend_record(fields, data):
     valid_id = False
     #Making sure Project ID is an integer
@@ -196,7 +195,7 @@ def amend_record(fields, data):
             else:
                 duplicate = any(new_projectid == row[0] for row in data)
                 if duplicate:
-                    print("\nProject ID already taken")
+                    print("\nError: Project ID already taken")
                 else:
                     data[record_index][fields.index(field_to_amend)] = new_projectid
                     break
@@ -278,7 +277,7 @@ def amend_record(fields, data):
         
 
 
-
+#Displays full details for a record from the table based on status 
 def display_full_details(fields, data):
     while True:
         try:
@@ -305,4 +304,3 @@ def display_full_details(fields, data):
         if choice.upper() == "EXIT":
             break
                     
-
